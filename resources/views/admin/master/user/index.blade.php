@@ -3,8 +3,8 @@
 @section('pagetitle','Master User')
 
 @section('customcss')
-<link rel="stylesheet" href="{{ asset('/plugins/datatables/dataTables.bootstrap.css') }}">
-<link rel="stylesheet" href="{{ asset('/plugins/datatables/jquery.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('admin/plugins/datatables/dataTables.bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('admin/plugins/datatables/jquery.dataTables.min.css') }}">
 @endsection
 
 @section('content')
