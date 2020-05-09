@@ -7,6 +7,7 @@ use App\Models\ImagesProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use DB;
+use Storage;
 
 class ProductsController extends Controller
 {
@@ -101,7 +102,9 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::with(['imageRelation'])->find($id);
+
+        return view('admin.master.product.edit',compact('product'));
     }
 
     /**
@@ -113,7 +116,57 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+
+        $oldImages = ImagesProduct::where('product_id',$id)->get();
+
+        DB::beginTransaction();
+
+        try {
+            // Mengubah data product
+            $product->update([
+                'product' => $request->product,
+                'price' => $request->price,
+                'stock' => $request->stock,
+                'description' => $request->description,
+            ]);
+
+            // Menyimpan images
+            if ($request->hasFile('images')) {
+
+                if (count($oldImages) >= 0) {
+
+                    foreach ($oldImages as $old) {
+                        Storage::delete($old->image);
+                    }
+
+                    ImagesProduct::where('product_id',$id)->delete();
+                }
+
+                $arrayImages = [];
+
+                foreach ($request->images as $value) {
+                    $path = $value->store('product');
+
+                    $columnsImages = [
+                        'product_id' => $product->id,
+                        'image' => $path,
+                    ];
+
+                    array_push($arrayImages,$columnsImages);
+                }
+
+                ImagesProduct::insert($arrayImages);
+            }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+        }
+
+        return redirect()->route('product.index');
     }
 
     /**
