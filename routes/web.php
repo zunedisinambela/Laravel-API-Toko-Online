@@ -22,4 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('users', 'Web\UsersController@index')->name('data.users');
+    Route::get('product', 'Web\ProductsController@create')->name('product.create');
+    Route::post('product', 'Web\ProductsController@store')->name('product.store');
 });
