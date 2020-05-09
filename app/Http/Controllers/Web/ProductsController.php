@@ -177,6 +177,24 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+
+        if ( !$product) {
+            abort(404);
+        }
+
+        $oldImages = ImagesProduct::where('product_id',$id)->get();
+
+        if (count($oldImages) >= 0) {
+            foreach ($oldImages as $old) {
+                Storage::delete($old->image);
+            }
+
+            ImagesProduct::where('product_id',$id)->delete();
+        }
+
+        $product->delete();
+
+        return redirect()->route('product.index');
     }
 }
