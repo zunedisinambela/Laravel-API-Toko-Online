@@ -18,7 +18,7 @@ class TransactionWebController extends Controller
     {
         $transaction = Transaction::with(['userRelation','detailRelation'])->paginate(10);
 
-        dd($transaction);
+        return view('admin.master.transaction.index')->with(['transactions' => $transaction]);
     }
 
     /**

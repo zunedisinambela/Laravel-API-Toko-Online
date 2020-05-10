@@ -140,7 +140,7 @@
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href="{{ 'transaction.index' }}">
+                        <a href="{{ 'transaction' }}">
                             <i class="fa fa-shopping-cart"></i> <span>Transaction</span>
                         </a>
                     </li>
