@@ -47,7 +47,7 @@
                                 <a href="javascript:void(0)" onclick="$(this).find('form').submit()" class="btn btn-xs btn-danger">
                                     <span class="fa fa-trash"></span>
 
-                                    <form action="{{ route('product.destory',$item->id) }}" method="post">
+                                    <form action="{{ route('product.destroy',$item->id) }}" method="post">
                                         @csrf
                                         @method('delete')
                                     </form>
