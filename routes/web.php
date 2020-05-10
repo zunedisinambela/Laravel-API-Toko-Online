@@ -14,11 +14,11 @@
 use App\Models\Transaction;
 
 Route::get('/', function () {
-    // return view('auth.login');
+    return view('auth.login');
 
-    $code = Transaction::getCode();
+    // $code = Transaction::getCode();
 
-    dd($code);
+    // dd($code);
 
 })->middleware('guest');
 
@@ -38,4 +38,8 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('product/{idproduct}/edit', 'Web\ProductsController@edit')->name('product.edit');
     // Route::put('product/{idproduct}', 'Web\ProductsController@update')->name('product.update');
     // Route::delete('product/{idproduct}', 'Web\ProductsController@destroy')->name('product.destroy');
+
+    Route::resource('transaction', 'Web\TransactionWebController',[
+        'only' => ['index','show','edit','update'],
+    ]);
 });

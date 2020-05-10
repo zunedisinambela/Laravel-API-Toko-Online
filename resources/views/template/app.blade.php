@@ -139,6 +139,11 @@
                             <li style="margin-left: 15px;"><a href="{{ route('product.index') }}"><i class="fa fa-dropbox"></i> Product</a></li>
                         </ul>
                     </li>
+                    <li class="treeview">
+                        <a href="{{ 'transaction.index' }}">
+                            <i class="fa fa-shopping-cart"></i> <span>Transaction</span>
+                        </a>
+                    </li>
 
                 </ul>
             </section>

@@ -29,11 +29,11 @@ class Transaction extends Model
 
     public function detailRelation()
     {
-        return $this->hasMany(App\Models\DetailsTransaction::class,'transaction_id','id');
+        return $this->hasMany(\App\Models\DetailsTransaction::class,'transaction_id','id');
     }
 
     public function userRelation()
     {
-        return $this->hasOne(App\Models\User::class,'id','user_id');
+        return $this->hasOne(\App\Models\User::class,'id','user_id');
     }
 }
