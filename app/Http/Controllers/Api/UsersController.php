@@ -68,4 +68,38 @@ class UsersController extends Controller
             ]
         ])->response()->setStatusCode(201);
     }
+
+    public function update(Request $request, $iduser)
+    {
+        $request->validate([
+            'name' => 'max:120',
+            'username' => 'max:100|unique:users,id,'. $iduser,
+            'email' => 'email|unique:users,id,'. $iduser,
+        ]);
+
+        $user = User::findOrFail($iduser);
+
+        if ($user == null) {
+            return Response::json([
+                'status' => [
+                    'code' => 404,
+                    'description' => 'User Not Found'
+                ]
+            ],404);
+        }else{
+            $request->merge([
+                'password' => bcrypt($request->password)
+            ]);
+
+            $user->update($request->all());
+        }
+
+        return (new UsersResource($user))->additional([
+            'status' => [
+                'code' => 202,
+                'description' => 'update successfully!'
+            ]
+        ])->response()->setStatusCode(202);
+        // return $user;
+    }
 }

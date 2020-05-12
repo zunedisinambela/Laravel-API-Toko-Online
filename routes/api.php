@@ -42,3 +42,4 @@ Route::get('users', 'Api\UsersController@index');
 
 Route::post('auth/login', 'Api\UsersController@login');
 Route::post('auth/register', 'Api\UsersController@register');
+Route::post('auth/update/{iduser}', 'Api\UsersController@update');
