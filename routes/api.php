@@ -38,9 +38,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Bagian Header : key : accept & content-type value : application/json
 // Bagian body : pilih raw dan json
 
+
+// Users
 Route::get('users', 'Api\UsersController@index');
 Route::get('users/{iduser}', 'Api\UsersController@user');
 Route::post('auth/login', 'Api\UsersController@login');
 Route::post('auth/register', 'Api\UsersController@register');
 Route::post('auth/update/{iduser}', 'Api\UsersController@update');
 Route::get('logout/{iduser}', 'Api\UsersController@logout');
+
+
+// Products
+Route::get('products', 'Api\ProductController@products');
