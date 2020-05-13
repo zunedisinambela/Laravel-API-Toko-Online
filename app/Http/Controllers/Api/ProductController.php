@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use DB;
 use Carbon\Carbon;
+use Response;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,7 +30,7 @@ class ProductController extends Controller
                     'code' => 404,
                     'description' => 'Data Not Found'
                 ]
-            ]);
+            ],404);
         }else{
             return ProductResource::collection($products)->additional([
                 'status' => [
@@ -39,5 +40,29 @@ class ProductController extends Controller
             ])->response()->setStatusCode(200);
         }
 
+    }
+
+
+    public function product($id)
+    {
+        $product = Product::with('imageRelation')->where('id',$id)->first();
+
+        // return $product;
+
+        if ( $product == null) {
+            return Response::json([
+                'status' => [
+                    'code' => 404,
+                    'description' => 'Do Not Found'
+                ]
+            ]);
+        }else{
+            return (new ProductResource($product))->additional([
+                'status' => [
+                    'code' => 200,
+                    'description' => 'OK'
+                ]
+            ])->response()->setStatusCode(200);
+        }
     }
 }
