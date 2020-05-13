@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function products(Request $request)
     {
-        $query = Product::select('*')->orderBy('name','asc');
+        $query = Product::with(['latestImage'])->select('*')->orderBy('product','asc');
 
         if ($request->search != null) {
             $query->where('product','like','%'.$request->search.'%');
