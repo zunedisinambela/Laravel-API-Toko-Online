@@ -51,3 +51,7 @@ Route::get('logout/{iduser}', 'Api\UsersController@logout');
 // Products
 Route::get('products', 'Api\ProductController@products');
 Route::get('product/{idproduct}', 'Api\ProductController@product');
+
+
+// Transaction
+Route::post('transaction', 'Api\TransactionApiController@store');
